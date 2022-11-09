@@ -89,7 +89,7 @@ class Ruler
      * @return  bool
      * @throws  \Hoa\Ruler\Exception
      */
-    public function assert($rule, Context $context = null)
+    public function assert($rule, Context $context = null): bool
     {
         if (is_string($rule)) {
             $rule = static::interpret($rule);
@@ -109,7 +109,7 @@ class Ruler
      * @return  \Hoa\Ruler\Model
      * @throws  \Hoa\Ruler\Exception
      */
-    public static function interpret($rule)
+    public static function interpret($rule): \Hoa\Ruler\Model
     {
         return static::getInterpreter()->visit(
             static::getCompiler()->parse($rule)
@@ -121,7 +121,7 @@ class Ruler
      *
      * @return  \Hoa\Ruler\Visitor\Interpreter
      */
-    public static function getInterpreter()
+    public static function getInterpreter() :  \Hoa\Ruler\Visitor\Interpreter
     {
         if (null === static::$_interpreter) {
             static::$_interpreter = new Visitor\Interpreter();
@@ -136,7 +136,7 @@ class Ruler
      * @param   \Hoa\Visitor\Visit  $visitor    Visitor.
      * @return  \Hoa\Visitor\Visit
      */
-    public function setAsserter(HoaVisitor\Visit $visitor)
+    public function setAsserter(HoaVisitor\Visit $visitor): \Hoa\Visitor\Visit
     {
         $old             = $this->_asserter;
         $this->_asserter = $visitor;
@@ -150,7 +150,7 @@ class Ruler
      * @param   \Hoa\Ruler\Context  $context    Context.
      * @return  \Hoa\Visitor\Visit
      */
-    public function getAsserter(Context $context = null)
+    public function getAsserter(Context $context = null):  \Hoa\Visitor\Visit
     {
         if (null === $asserter = $this->_asserter) {
             return static::getDefaultAsserter($context);
@@ -169,7 +169,7 @@ class Ruler
      * @param   \Hoa\Ruler\Context    $context    Context.
      * @return  \Hoa\Ruler\Visitor\Asserter
      */
-    public static function getDefaultAsserter(Context $context = null)
+    public static function getDefaultAsserter(Context $context = null): \Hoa\Ruler\Visitor\Asserter
     {
         if (null === static::$_defaultAsserter) {
             static::$_defaultAsserter = new Visitor\Asserter($context);
@@ -187,7 +187,7 @@ class Ruler
      *
      * @return  \Hoa\Compiler\Llk\Parser
      */
-    public static function getCompiler()
+    public static function getCompiler(): \Hoa\Compiler\Llk\Parser
     {
         if (null === static::$_compiler) {
             static::$_compiler = Compiler\Llk::load(
