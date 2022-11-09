@@ -67,7 +67,7 @@ class Context implements \ArrayAccess
      *
      * @param   array  $data    Initial data.
      */
-    public function __construct(array $data = [])
+    public function __construct(array $data = []): void
     {
         $this->_data = $data;
 
@@ -81,7 +81,7 @@ class Context implements \ArrayAccess
      * @param   mixed   $value    Value.
      * @return  void
      */
-    public function offsetSet($id, $value)
+    public function offsetSet($id, $value): void
     {
         $this->_data[$id] = $value;
 
@@ -95,7 +95,7 @@ class Context implements \ArrayAccess
      * @return  mixed
      * @throws  \Hoa\Ruler\Exception
      */
-    public function offsetGet($id)
+    public function offsetGet($id): mixed
     {
         if (false === array_key_exists($id, $this->_data)) {
             throw new Exception(
@@ -128,7 +128,7 @@ class Context implements \ArrayAccess
      *
      * @return  bool
      */
-    public function offsetExists($id)
+    public function offsetExists($id): bool
     {
         return true === array_key_exists($id, $this->_data);
     }
@@ -139,7 +139,7 @@ class Context implements \ArrayAccess
      * @param   string  $id    ID.
      * @return  void
      */
-    public function offsetUnset($id)
+    public function offsetUnset($id): void
     {
         unset($this->_data[$id]);
 
@@ -153,7 +153,7 @@ class Context implements \ArrayAccess
      * @return  mixed
      * @throws  \Hoa\Ruler\Exception
      */
-    public function __get($name)
+    public function __get($name): mixed
     {
         return $this->offsetGet($name);
     }
@@ -165,7 +165,7 @@ class Context implements \ArrayAccess
      * @param   mixed   $value    Value.
      * @return  void
      */
-    public function __set($id, $value)
+    public function __set($id, $value): void
     {
         $this->offsetSet($id, $value);
     }
